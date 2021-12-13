@@ -2,10 +2,12 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
         <members>labourDetailUpdates</members>
+        <members>inputLookupController</members>
         <name>ApexClass</name>
     </types>
     <types>
         <members>labour_details</members>
+        <members>labourDataSearch</members>
         <name>LightningComponentBundle</name>
     </types>
      <types>
