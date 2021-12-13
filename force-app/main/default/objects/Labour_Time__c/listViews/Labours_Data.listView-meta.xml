@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Labours_Data</fullName>
+    <columns>NAME</columns>
+    <columns>Name__c</columns>
+    <columns>Type_of_Day__c</columns>
+    <columns>Work_Day__c</columns>
+    <filterScope>Mine</filterScope>
+    <label>Labours Data</label>
+</ListView>

@@ -1,0 +1,83 @@
+<template>
+    <div style="float: left;">
+    <div class='class="slds-size_1-of-3'>
+        <lightning-layout>
+            <lightning-layout-item padding="around-small">
+                <lightning-input type='date' name="date" 
+                        placeholder="Select Date"
+                        onchange={handleDate}
+                        min="2020-09-05" 
+                        max="2023-09-22">
+                </lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+                <lightning-input type='text' name="Description" 
+                    placeholder="Add Descripiton"
+                    onchange={handleDes}>
+               </lightning-input>            
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+    
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="">
+                    <th class="slds-size_1-of-10" scope="col">
+                        <div class="slds-truncate" title="Action">Action</div>
+                    </th>
+                    <th class="slds-size_3-of-10" scope="col">
+                        <div class="slds-truncate" title="Name">Name</div>
+                    </th>
+                    <th class="slds-size_3-of-10" scope="col">
+                        <div class="slds-truncate" title="Type_Of_Day__c">Type Of Day</div>
+                    </th>
+                 
+               
+                </tr>
+            </thead>
+        <tbody>
+            <template for:each = {accounts} for:item = "item" for:index="indexVar">
+                <tr key={item.Id} class="slds-hint-parent" ondblclick={onDoubleClickEdit}>
+                    <td class="slds-size_1-of-10" data-label="Prospecting">
+                            <lightning-input type='checkbox'  
+                                            value={item.Name}  
+                                            data-id={item.Id} 
+                                            onclick={handleCheckBoxSelect}>
+                            </lightning-input>
+                    </td>
+                    <td class="slds-size_3-of-10" data-label="Prospecting">
+                        <lightning-formatted-text value={item.Name}></lightning-formatted-text>
+                    </td>
+                    <td class="slds-size_3-of-10" data-label="Prospecting" >
+                        <div  title="Prospecting" data-id={item.Id}>
+                            <template if:false={isEdited}>        
+                         <div class="slds-truncate">Full Day</div>
+                            </template>
+                            <template if:true={isEdited}>
+                                <lightning-combobox
+                                        data-id={item.Id}
+                                        label="Status"
+                                        value="Full Day"
+                                        variant="label-hidden"
+                                        options={options}
+                                        onchange={handlePicklistChange} >
+                                </lightning-combobox>
+                            </template>
+                        </div>
+                    </td>
+                  
+                </tr>
+            </template>
+        </tbody>
+    </table>
+
+    <div class="slds-col">
+        <span>
+            <lightning-button label="Save" onclick={upsertDetail} style="margin-left: 40%" 
+            disabled={disableButton}
+            variant="brand"></lightning-button>
+        </span>
+    </div>
+
+    </div>
+</template>
