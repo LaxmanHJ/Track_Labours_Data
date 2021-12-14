@@ -1,16 +1,15 @@
 <!--
-    @description       : 
-    @author            : Amit Singh
-    @group             : 
-    @last modified on  : 12-20-2020
-    @last modified by  : Amit Singh
+    Author            : Laxman J
+    @last modified on  : 12-14-2021
     Modifications Log 
     Ver   Date         Author       Modification
     1.0   12-14-2021  Laxman j  Initial Version
 -->
 <template>
-
-<lightning-spinner if:true={isLoading} alternative-text="Loading" size="small"></lightning-spinner>
+    <lightning-card>
+<lightning-layout>
+    <lightning-layout-item lexibility="auto" padding="around-small">
+        <lightning-spinner if:true={isLoading} alternative-text="Loading" size="small"></lightning-spinner>
     <div class="slds-form-element">
         <label class="slds-form-element__label" for="combobox-id-1">Search Labour</label>
         <div class="slds-form-element__control">
@@ -21,14 +20,16 @@
                             <input type="text" onchange={handleInputChange} onkeyup={handleInputChange} onkeydown={handleInputChange}
                             class="slds-input slds-combobox__input" 
                             id="combobox-id-1" aria-autocomplete="list" aria-controls="listbox-id-1" autocomplete="off" 
-                            role="textbox" placeholder="placeholder" />
+                            role="textbox" placeholder="search labour..." />
                             <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
                             <svg class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default" aria-hidden="true">
                                 <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#search"></use>
                             </svg>
                             </span>
                         </div>
-                        <div style="background: white;" id="listbox-id-1" class="slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox">
+                        <div style="background: rgb(253, 253, 253); border: 1px ridge rgb(253, 253, 253); border-radius: 3px; box-shadow: 5px 5px 5px rgb(243, 237, 237); " 
+                             id="listbox-id-1" class="slds-dropdown_length-with-icon-7 slds-dropdown_fluid" 
+                             role="listbox">
                             <ul class="slds-listbox slds-listbox_vertical" role="presentation">
                                 <template if:true={accountNames} for:each={accountNames} for:item="record" for:index="index">
                                     <li onclick={handleSelect} role="presentation" class="slds-listbox__item" data-record-id={record.Id} key={record.Id}>
@@ -36,7 +37,7 @@
                                             <span class="slds-media__figure slds-listbox__option-icon">
                                                 <span class="slds-icon_container slds-icon-standard-account">
                                                 <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                                                    <use xlink:href={ICON_URL}></use>0
+                                                    <use xlink:href="/apexpages/slds/latest/assets/icons/standard-sprite/svg/symbols.svg#user"></use>
                                                 </svg>
                                                 </span>
                                             </span>
@@ -78,4 +79,18 @@
             </div>
         </div>
     </div>
+    </lightning-layout-item>
+    <lightning-layout-item lexibility="auto" padding="around-small">
+        <lightning-input 
+            type="date" name="workDate" label="Work Date" 
+            onchange={applyDateInputChange} autocomplete="off" 
+            date-style="short">
+        </lightning-input>
+    </lightning-layout-item>
+</lightning-layout>
+<lightning-layout-item class="jend">
+    <button class="slds-button slds-button_neutral" onclick={applyFilters} title="Search" >Search</button>
+    <button class="slds-button slds-button_neutral" onclick={handleReset} title="Reset" >Reset</button>
+</lightning-layout-item>
+</lightning-card>
 </template>
