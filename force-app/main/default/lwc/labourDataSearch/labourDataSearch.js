@@ -7,9 +7,11 @@ export default class LabourDataSearch extends LightningElement {
     @track accountNames;
     @track isLoading=false;
     @track selectedRecord;
+    @track selectedDate;
     delayTimeout;
     objectLabel='Account';
-    ICON_URL = '/apexpages/slds/latest/assets/icons/{0}-sprite/svg/symbols.svg#{1}';
+    ICON_URL = 'apexpages/slds/latest/assets/icons/standard-sprite/svg/symbols.svg#account';
+    
 
     handleInputChange(event){
         window.clearTimeout(this.delayTimeout);
@@ -73,5 +75,14 @@ handleClose(){
         }
     });
     this.dispatchEvent(selectedEvent);
+}
+
+applyFilters(){
+
+}
+
+applyDateInputChange(event){
+    this.selectedDate = event.target.value;
+    console.log('selectedDate:'+this.selectedDate);
 }
 }
