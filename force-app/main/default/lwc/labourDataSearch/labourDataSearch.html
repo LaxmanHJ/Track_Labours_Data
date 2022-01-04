@@ -92,5 +92,13 @@
     <button class="slds-button slds-button_neutral" onclick={applyFilters} title="Search" >Search</button>
     <button class="slds-button slds-button_neutral" onclick={handleReset} title="Reset" >Reset</button>
 </lightning-layout-item>
+
+<div class="slds-p-around_xx-small">
+    <lightning-datatable
+        key-field="id"
+        data={laboursTimeData}
+        columns={columns}>
+    </lightning-datatable>
+</div>
 </lightning-card>
 </template>
