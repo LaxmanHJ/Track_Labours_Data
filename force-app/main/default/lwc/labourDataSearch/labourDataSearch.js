@@ -9,9 +9,15 @@ const columns = [
         label: 'Name',
         fieldName: 'lName',
         type: 'text'
-        }, {
+    },
+    {
         label: 'No_Of_Days',
-        fieldName: 'lTime',
+        fieldName: 'countOfLabour',
+        type: 'text'
+    },
+    {
+        label: 'Amount to Pay',
+        fieldName: 'amountToPay',
         type: 'text'
     }
 ];
@@ -97,9 +103,13 @@ applyFilters(){
     getlabourTime({accId : this.selectedRecord.Id})
     .then(data=>{
         this.laboursTimeData = data;
+        console.log('Data'+JSON.stringify(this.laboursTimeData));
+
         if(this.laboursTimeData){
             this.laboursTimeData.forEach(item => item['lName'] = this.selectedRecord.Name);
-            this.laboursTimeData.forEach(item => item['lTime'] = item['lTime']);
+            this.laboursTimeData.forEach(item => item['countOfLabour'] = item['countOfLabour']);
+            this.laboursTimeData.forEach(item => item['amountToPay'] = item['amountToPay']);
+
         }
         console.log('laboursTimeData'+JSON.stringify(this.laboursTimeData));
     })

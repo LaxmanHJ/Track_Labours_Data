@@ -39,6 +39,24 @@ public class labourDetailUpdates {
         
     }
     
+    @Auraenabled
+    public static List<labouDetailandAmountWrapper> getNoOfLabourTime(String accId){
+        		labouDetailandAmountWrapper ldm = new labouDetailandAmountWrapper();
+        		List<labouDetailandAmountWrapper> ldmList = new List<labouDetailandAmountWrapper>();
+        		Map<String,Decimal> accIDvsAmountPay = new Map<String,Decimal>();
+        		Account acc = [SELECT Id,Amount_Pending__c FROM Account WHERE Id =: accId LIMIT 1];
+        		accIDvsAmountPay.put(acc.Id,acc.Amount_Pending__c);
+                List<AggregateResult> aggList = [SELECT COUNT(Id) lTime, Name__c FROM Labour_Time__c WHERE Name__c =: accId Group By Name__c]; 
+        		for(AggregateResult agg:aggList){
+            		ldm.countOfLabour = (Decimal)agg.get('lTime');
+                    ldm.amountToPay = accIDvsAmountPay.get((Id)(agg.get('Name__c')));
+                    ldmList.add(ldm);
+        		}
+        		System.debug('ldmLax'+ldmList);
+        		return ldmList;
+
+    }
+    
     //Wrapper to read data from LwC
     public class labourDetailWrapper{
        // @AuraEnabled
@@ -50,5 +68,12 @@ public class labourDetailUpdates {
         public Date Inpdate; 
         //@AuraEnabled
         public String des;
+    }
+    
+    public class labouDetailandAmountWrapper{
+        @AuraEnabled
+        public Decimal countOfLabour{get;set;}
+        @AuraEnabled
+        public Decimal amountToPay{get;set;}
     }
 }
