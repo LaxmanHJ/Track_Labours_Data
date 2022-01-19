@@ -1,6 +1,8 @@
 import { LightningElement, track } from 'lwc';
 import lookupSearchController from '@salesforce/apex/inputLookupController.getRecords';
 import getlabourTime from '@salesforce/apex/labourDetailUpdates.getNoOfLabourTime';
+import updateAmount from '@salesforce/apex/AccountService.updateAmount';
+
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const DELAY = 300;
@@ -27,6 +29,9 @@ export default class LabourDataSearch extends LightningElement {
     @track selectedRecord;
     @track selectedDate;
     @track laboursTimeData;
+    @track showDatatable = false;
+    @track amountPaid;
+    @track returnMsg;
 
     columns = columns;
     delayTimeout;
@@ -84,6 +89,7 @@ handleSelect(event){
 
 handleClose(){
     this.selectedRecord = undefined;
+    this.showDatatable = false;
     this.accountNames  = undefined;
     const selectedEvent = new CustomEvent('lookup', {
         bubbles    : true,
@@ -103,6 +109,7 @@ applyFilters(){
     getlabourTime({accId : this.selectedRecord.Id})
     .then(data=>{
         this.laboursTimeData = data;
+        this.showDatatable = true;
         console.log('Data'+JSON.stringify(this.laboursTimeData));
 
         if(this.laboursTimeData){
@@ -118,8 +125,31 @@ applyFilters(){
     }) 
 }
 
+handleReset(){
+    this.showDatatable = false;
+    this.selectedRecord = undefined;
+    this.accountNames  = undefined;
+
+}
+
 applyDateInputChange(event){
     this.selectedDate = event.target.value;
     console.log('selectedDate:'+this.selectedDate);
+}
+
+handleAmountPaid(event){
+    this.amountPaid = event.target.value;
+    console.log("amountPaid"+this.amountPaid);
+
+}
+
+applySaveAmount(){
+    updateAmount({accId : this.selectedRecord.Id,amountPaid : this.amountPaid})
+    .then(retMsg=>{
+        this.returnMsg = retMsg;
+        console.log('returnMsg'+this.returnMsg);
+    }).catch(error => {
+        console.log('Error: ', error);
+    }) 
 }
 }
