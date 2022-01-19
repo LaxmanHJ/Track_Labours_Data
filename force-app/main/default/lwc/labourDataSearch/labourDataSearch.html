@@ -6,7 +6,7 @@
     1.0   12-14-2021  Laxman j  Initial Version
 -->
 <template>
-    <lightning-card>
+<lightning-card>
 <lightning-layout>
     <lightning-layout-item lexibility="auto" padding="around-small">
         <lightning-spinner if:true={isLoading} alternative-text="Loading" size="small"></lightning-spinner>
@@ -88,17 +88,33 @@
         </lightning-input>
     </lightning-layout-item>
 </lightning-layout>
-<lightning-layout-item class="jend">
+<lightning-layout-item class="jend slds-p-around_xx-small">
     <button class="slds-button slds-button_neutral" onclick={applyFilters} title="Search" >Search</button>
     <button class="slds-button slds-button_neutral" onclick={handleReset} title="Reset" >Reset</button>
 </lightning-layout-item>
 
-<div class="slds-p-around_xx-small">
-    <lightning-datatable
-        key-field="id"
-        data={laboursTimeData}
-        columns={columns}>
-    </lightning-datatable>
-</div>
+    <template if:true={showDatatable}>
+        <div class="slds-p-around_xx-small">
+            <lightning-datatable
+                key-field="id"
+                data={laboursTimeData}
+                columns={columns}>
+            </lightning-datatable>
+        </div>
+
+    <div class="slds-clearfix">
+        <div class="slds-size_1-of-3 slds-float_right">
+            <div class="slds-p-around_x-small">
+                <lightning-input type="text" name="AmountPaid" label="Amount Paid Now" 
+                    onchange={handleAmountPaid} autocomplete="off">
+                </lightning-input>
+            </div>
+            <div class="slds-p-around_x-small">
+                <button class="slds-button slds-button_brand" onclick={applySaveAmount} title="Save" >Save</button>
+            </div>
+        </div>
+    </div>
+
+    </template>
 </lightning-card>
 </template>
