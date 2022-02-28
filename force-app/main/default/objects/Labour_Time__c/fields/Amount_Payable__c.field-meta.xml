@@ -5,7 +5,7 @@
     <formula>IF(ISPICKVAL(Type_of_Day__c, &quot;Only Morning&quot;),80,
     IF(ISPICKVAL(Type_of_Day__c, &quot;Only Evening&quot;),50,
      IF(ISPICKVAL(Type_of_Day__c, &quot;Half Day&quot;),100,
-      IF(ISPICKVAL(Type_of_Day__c, &quot;Full Day&quot;),150,0))))</formula>
+      IF(ISPICKVAL(Type_of_Day__c, &quot;Full Day&quot;),200,0))))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Amount Payable</label>
     <precision>18</precision>
