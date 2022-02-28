@@ -148,8 +148,29 @@ applySaveAmount(){
     .then(retMsg=>{
         this.returnMsg = retMsg;
         console.log('returnMsg'+this.returnMsg);
+
+        if(this.returnMsg === 'Success'){
+            const evt = new ShowToastEvent({
+                title: 'Success',
+                message: 'Paid Amount Updated sucessfully',
+                variant: 'success',
+                mode: 'dismissable'
+            });
+            this.dispatchEvent(evt);
+        }else {
+            const evt = new ShowToastEvent({
+                title: 'Fail',
+                message: 'Paid Amount failed to Update',
+                variant: 'Fail',
+                mode: 'dismissable'
+            });
+            this.dispatchEvent(evt);
+        
+        }
     }).catch(error => {
         console.log('Error: ', error);
     }) 
+
+   this.handleReset();
 }
 }
