@@ -46,7 +46,7 @@ public class labourDetailUpdates {
         		Map<String,Decimal> accIDvsAmountPay = new Map<String,Decimal>();
         		Account acc = [SELECT Id,Amount_Pending__c FROM Account WHERE Id =: accId LIMIT 1];
         		accIDvsAmountPay.put(acc.Id,acc.Amount_Pending__c);
-                List<AggregateResult> aggList = [SELECT COUNT(Id) lTime, Name__c FROM Labour_Time__c WHERE Name__c =: accId Group By Name__c]; 
+                List<AggregateResult> aggList = [SELECT COUNT(Id) lTime, Name__c FROM Labour_Time__c WHERE Name__c =: accId and Is_Amount_Paid__c = false Group By Name__c]; 
         		for(AggregateResult agg:aggList){
             		ldm.countOfLabour = (Decimal)agg.get('lTime');
                     ldm.amountToPay = accIDvsAmountPay.get((Id)(agg.get('Name__c')));
