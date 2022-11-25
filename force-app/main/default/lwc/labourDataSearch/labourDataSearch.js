@@ -32,6 +32,8 @@ export default class LabourDataSearch extends LightningElement {
     @track showDatatable = false;
     @track amountPaid;
     @track returnMsg;
+    @track amountPending;
+    @track selAccName;
 
     columns = columns;
     delayTimeout;
@@ -51,7 +53,6 @@ export default class LabourDataSearch extends LightningElement {
                 })
                 .then(result => {
                      this.accountNames =result;
-                     console.log('AccountsLax'+JSON.stringify(this.accountNames));
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -71,7 +72,7 @@ handleSelect(event){
         return item.Id === recordId;
     });
     this.selectedRecord = selectRecord;
-    console.log('inside handleSelect'+JSON.stringify(this.selectedRecord));
+    this.selAccName = this.selectedRecord.Name;
     const selectedEvent = new CustomEvent('lookup', {
         bubbles    : true,
         composed   : true,
@@ -105,20 +106,17 @@ handleClose(){
 }
 
 applyFilters(){
-    console.log('i m here'+this.selectedRecord.Id);
     getlabourTime({accId : this.selectedRecord.Id})
     .then(data=>{
         this.laboursTimeData = data;
         this.showDatatable = true;
-        console.log('Data'+JSON.stringify(this.laboursTimeData));
-
+        this.amountPending = this.laboursTimeData.length > 0 ? true : false;
         if(this.laboursTimeData){
             this.laboursTimeData.forEach(item => item['lName'] = this.selectedRecord.Name);
             this.laboursTimeData.forEach(item => item['countOfLabour'] = item['countOfLabour']);
             this.laboursTimeData.forEach(item => item['amountToPay'] = item['amountToPay']);
 
         }
-        console.log('laboursTimeData'+JSON.stringify(this.laboursTimeData));
     })
     .catch(error => {
         console.log('Error: ', error);
@@ -134,37 +132,36 @@ handleReset(){
 
 applyDateInputChange(event){
     this.selectedDate = event.target.value;
-    console.log('selectedDate:'+this.selectedDate);
+
 }
 
 handleAmountPaid(event){
     this.amountPaid = event.target.value;
-    console.log("amountPaid"+this.amountPaid);
 
+    
 }
 
 applySaveAmount(){
     updateAmount({accId : this.selectedRecord.Id,amountPaid : this.amountPaid})
     .then(retMsg=>{
         this.returnMsg = retMsg;
-        console.log('returnMsg'+this.returnMsg);
 
         if(this.returnMsg === 'Success'){
             const evt = new ShowToastEvent({
-                title: 'Success',
+                title: 'success',
                 message: 'Paid Amount Updated sucessfully',
                 variant: 'success',
                 mode: 'dismissable'
             });
             this.dispatchEvent(evt);
         }else {
-            const evt = new ShowToastEvent({
+            const evtFail = new ShowToastEvent({
                 title: 'Fail',
-                message: 'Paid Amount failed to Update',
+                message: 'Paid Amount failed to Update' + retMsg,
                 variant: 'Fail',
                 mode: 'dismissable'
             });
-            this.dispatchEvent(evt);
+            this.dispatchEvent(evtFail);
         
         }
     }).catch(error => {

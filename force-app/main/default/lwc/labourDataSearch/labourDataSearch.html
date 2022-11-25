@@ -6,115 +6,142 @@
     1.0   12-14-2021  Laxman j  Initial Version
 -->
 <template>
-<lightning-card>
-<lightning-layout>
-    <lightning-layout-item lexibility="auto" padding="around-small">
-        <lightning-spinner if:true={isLoading} alternative-text="Loading" size="small"></lightning-spinner>
-    <div class="slds-form-element">
-        <label class="slds-form-element__label" for="combobox-id-1">Search Labour</label>
-        <div class="slds-form-element__control">
-            <div class="slds-combobox_container">
-                <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click" aria-expanded="false" aria-haspopup="listbox" role="combobox">
-                    <template if:false={selectedRecord}>
-                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
-                            <input type="text" onchange={handleInputChange} onkeyup={handleInputChange} onkeydown={handleInputChange}
-                            class="slds-input slds-combobox__input" 
-                            id="combobox-id-1" aria-autocomplete="list" aria-controls="listbox-id-1" autocomplete="off" 
-                            role="textbox" placeholder="search labour..." />
-                            <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
-                            <svg class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default" aria-hidden="true">
-                                <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#search"></use>
-                            </svg>
-                            </span>
-                        </div>
-                        <div style="background: rgb(253, 253, 253); border: 1px ridge rgb(253, 253, 253); border-radius: 3px; box-shadow: 5px 5px 5px rgb(243, 237, 237); " 
-                             id="listbox-id-1" class="slds-dropdown_length-with-icon-7 slds-dropdown_fluid" 
-                             role="listbox">
-                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
-                                <template if:true={accountNames} for:each={accountNames} for:item="record" for:index="index">
-                                    <li onclick={handleSelect} role="presentation" class="slds-listbox__item" data-record-id={record.Id} key={record.Id}>
-                                        <div data-id={record.Id} class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
-                                            <span class="slds-media__figure slds-listbox__option-icon">
-                                                <span class="slds-icon_container slds-icon-standard-account">
-                                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                                                    <use xlink:href="/apexpages/slds/latest/assets/icons/standard-sprite/svg/symbols.svg#user"></use>
-                                                </svg>
-                                                </span>
-                                            </span>
-                                            <span class="slds-media__body">
-                                            <span class="slds-listbox__option-text slds-listbox__option-text_entity">
-                                                {record.Name}
-                                            </span>
-                                         </span>
-                                        </div>
-                                    </li>
+    <lightning-card>
+        <lightning-layout>
+            <lightning-layout-item lexibility="auto" padding="around-small">
+                <lightning-spinner if:true={isLoading} alternative-text="Loading" size="small"></lightning-spinner>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="combobox-id-1">Search Labour</label>
+                    <div class="slds-form-element__control">
+                        <div class="slds-combobox_container">
+                            <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click"
+                                aria-expanded="false" aria-haspopup="listbox" role="combobox">
+                                <template if:false={selectedRecord}>
+                                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+                                        role="none">
+                                        <input type="text" onchange={handleInputChange} onkeyup={handleInputChange}
+                                            onkeydown={handleInputChange} class="slds-input slds-combobox__input"
+                                            id="combobox-id-1" aria-autocomplete="list" aria-controls="listbox-id-1"
+                                            autocomplete="off" role="textbox" placeholder="search labour..." />
+                                        <span
+                                            class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                                            <svg class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default"
+                                                aria-hidden="true">
+                                                <use
+                                                    xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#search">
+                                                </use>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div style="background: rgb(253, 253, 253); border: 1px ridge rgb(253, 253, 253); border-radius: 3px; box-shadow: 5px 5px 5px rgb(243, 237, 237); "
+                                        id="listbox-id-1" class="slds-dropdown_length-with-icon-7 slds-dropdown_fluid"
+                                        role="listbox">
+                                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                            <template if:true={accountNames} for:each={accountNames} for:item="record"
+                                                for:index="index">
+                                                <li onclick={handleSelect} role="presentation"
+                                                    class="slds-listbox__item" data-record-id={record.Id}
+                                                    key={record.Id}>
+                                                    <div data-id={record.Id}
+                                                        class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                                                        role="option">
+                                                        <span class="slds-media__figure slds-listbox__option-icon">
+                                                            <span
+                                                                class="slds-icon_container slds-icon-standard-account">
+                                                                <svg class="slds-icon slds-icon_small"
+                                                                    aria-hidden="true">
+                                                                    <use
+                                                                        xlink:href="/apexpages/slds/latest/assets/icons/standard-sprite/svg/symbols.svg#user">
+                                                                    </use>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                        <span class="slds-media__body">
+                                                            <span
+                                                                class="slds-listbox__option-text slds-listbox__option-text_entity">
+                                                                {record.Name}
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
                                 </template>
-                            </ul>
+                                <template if:true={selectedRecord}>
+                                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right"
+                                        role="none">
+                                        <span
+                                            class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon"
+                                            title="objectLabel">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use xlink:href={ICON_URL}></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">{objectLabel}</span>
+                                        </span>
+                                        <input type="text"
+                                            class="slds-input slds-combobox__input slds-combobox__input-value"
+                                            id="combobox-id-5" aria-controls="listbox-id-5" disabled autocomplete="off"
+                                            role="textbox" placeholder="Select an Option…" readonly=""
+                                            value={selectedRecord.Name} />
+                                        <button
+                                            class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+                                            title="Remove selected option" onclick={handleClose}>
+                                            <svg class="slds-button__icon" aria-hidden="true">
+                                                <use
+                                                    xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close">
+                                                </use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Remove selected option</span>
+                                        </button>
+                                    </div>
+                                </template>
+                            </div>
                         </div>
-                    </template>
-                    <template if:true={selectedRecord}>
-                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right" role="none">
-                            <span class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon" 
-                            title="objectLabel">
-                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                                    <use xlink:href={ICON_URL}></use>
-                                </svg>
-                                <span class="slds-assistive-text">{objectLabel}</span>
-                            </span>
-                            <input type="text" class="slds-input slds-combobox__input slds-combobox__input-value" 
-                                    id="combobox-id-5" aria-controls="listbox-id-5"  disabled
-                                    autocomplete="off" role="textbox" placeholder="Select an Option…" 
-                                    readonly="" value={selectedRecord.Name}
-                            />
-                            <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" 
-                                title="Remove selected option" onclick={handleClose}>
-                                <svg class="slds-button__icon" aria-hidden="true">
-                                    <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
-                                </svg>
-                                <span class="slds-assistive-text">Remove selected option</span>
-                            </button>
-                        </div>
-                    </template>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    </lightning-layout-item>
-    <lightning-layout-item lexibility="auto" padding="around-small">
-        <lightning-input 
-            type="date" name="workDate" label="Work Date" 
-            onchange={applyDateInputChange} autocomplete="off" 
-            date-style="short">
-        </lightning-input>
-    </lightning-layout-item>
-</lightning-layout>
-<lightning-layout-item class="jend slds-p-around_xx-small">
-    <button class="slds-button slds-button_neutral" onclick={applyFilters} title="Search" >Search</button>
-    <button class="slds-button slds-button_neutral" onclick={handleReset} title="Reset" >Reset</button>
-</lightning-layout-item>
-
-    <template if:true={showDatatable}>
-        <div class="slds-p-around_xx-small">
-            <lightning-datatable
-                key-field="id"
-                data={laboursTimeData}
-                columns={columns}>
-            </lightning-datatable>
-        </div>
-
-    <div class="slds-clearfix">
-        <div class="slds-size_1-of-3 slds-float_right">
-            <div class="slds-p-around_x-small">
-                <lightning-input type="number" name="AmountPaid" label="Amount Paid Now" 
-                    onchange={handleAmountPaid} autocomplete="off">
+            </lightning-layout-item>
+            <lightning-layout-item lexibility="auto" padding="around-small">
+                <lightning-input type="date" name="workDate" label="Work Date" onchange={applyDateInputChange}
+                    autocomplete="off" date-style="short">
                 </lightning-input>
-            </div>
-            <div class="slds-p-around_x-small">
-                <button class="slds-button slds-button_brand" onclick={applySaveAmount} title="Save" >Save</button>
-            </div>
-        </div>
-    </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout-item class="jend slds-p-around_xx-small">
+            <button class="slds-button slds-button_neutral" onclick={applyFilters} title="Search">Search</button>
+            <button class="slds-button slds-button_neutral" onclick={handleReset} title="Reset">Reset</button>
+        </lightning-layout-item>
 
-    </template>
-</lightning-card>
+        <template if:true={showDatatable}>
+            <template if:false={amountPending}>
+                <div class="slds-align_absolute-center">
+                    <div class="slds-text-heading_small slds-box slds-theme_shade slds-theme_alert-texture">
+                        <p>Amount is Fully Paid to <strong> {selAccName} </strong></p>
+                    </div>
+                </div>
+            </template>
+
+            <template if:true={amountPending}>
+                <div class="slds-p-around_xx-small">
+                    <lightning-datatable key-field="id" data={laboursTimeData} columns={columns}>
+                    </lightning-datatable>
+                </div>
+
+                <div class="slds-clearfix">
+                    <div class="slds-size_1-of-3 slds-float_right">
+                        <div class="slds-p-around_x-small">
+                            <lightning-input type="number" name="AmountPaid" label="Amount Paid Now"
+                                onchange={handleAmountPaid} autocomplete="off">
+                            </lightning-input>
+                        </div>
+                        <div class="slds-p-around_x-small">
+                            <button class="slds-button slds-button_brand" onclick={applySaveAmount}
+                                title="Save">Save</button>
+                        </div>
+                    </div>
+                </div>
+
+            </template>
+        </template>
+    </lightning-card>
 </template>
