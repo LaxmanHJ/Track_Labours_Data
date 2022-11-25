@@ -47,12 +47,10 @@ export default class Labour_details extends NavigationMixin(LightningElement) {
 	wiredAccounts({data, error}){
 		if(data) {
 			this.accounts =data;
-            console.log('gg'+this.accounts);
 			this.error = undefined;
 		}else {
 			this.accounts = undefined;
 			this.error = error;
-            console.log('accError'+error);
 		}
 	}
 
@@ -62,20 +60,17 @@ export default class Labour_details extends NavigationMixin(LightningElement) {
         this.enteredDate = event.detail.value;
 
         this.disableButton = !(this.isDateSelected && this.isCheckboxSelected);
-        console.log('enteredDate'+this.enteredDate);
 
     }
 
     handleDes(event){
         this.enteredDes = event.detail.value;
-        console.log('enteredDate'+this.enteredDes);
 
     }
     handlePicklistChange(event) {
             let newList = this.tempList;
             newList.push({Id:event.target.dataset.id,tod:event.detail.value});
             this.tempList = newList;
-            console.log("TempList1"+JSON.stringify(this.tempList));
     }
 
     onDoubleClickEdit() {
@@ -97,7 +92,6 @@ export default class Labour_details extends NavigationMixin(LightningElement) {
         // based on selected row getting values of the contact
         for(let i = 0; i < selectedRows.length; i++) {
             if(selectedRows[i].checked && selectedRows[i].type === 'checkbox') {
-                console.log("Idd==>"+selectedRows[i].dataset.id);
                 //check if typeOfDay is selected
                 let element = this.tempList.find(ele  => ele.Id === selectedRows[i].dataset.id);
                 if(element){
@@ -106,7 +100,6 @@ export default class Labour_details extends NavigationMixin(LightningElement) {
                     typeOfDay =  "Full Day";
                 }
                 
-                console.log("Idd2==>"+typeOfDay+"==>>");
 
                 this.selectedCons.push({
                     Id: selectedRows[i].dataset.id,
@@ -118,17 +111,12 @@ export default class Labour_details extends NavigationMixin(LightningElement) {
 
             }
         }
-        //console.log('selectedCosn'+this.selectedCons);
-        console.log('len of Selectedcosn'+this.selectedCons.length);
 
         //call labour update method only if records are selected
         if(this.selectedCons.length > 0){
-            console.log('yes lu called');
             this.applylabourUpdate();
     }
-        console.log('selectedCosn'+JSON.stringify(this.selectedCons));
-        console.log('templist'+JSON.stringify(this.tempList));
-
+        
 
         // let element = this.tempList.find(ele  => ele.Id === '0012w00000M9MjbAAF');
         // typeOfDay = element.tod ? element.tod : "Full Day";
@@ -136,11 +124,9 @@ export default class Labour_details extends NavigationMixin(LightningElement) {
         
     }
     applylabourUpdate(){
-        console.log("datatoPAss"+JSON.stringify(this.selectedCons));
         insertToLD({labourDetails: JSON.stringify(this.selectedCons)})
         .then(data=>{
             this.msg = data;
-            console.log("msg"+this.msg);
             if(this.msg === 'Success'){
                 const evt = new ShowToastEvent({
                     title: 'Success',

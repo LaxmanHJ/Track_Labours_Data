@@ -53,6 +53,13 @@ public class labourDetailUpdates {
                     ldmList.add(ldm);
         		}
         		System.debug('ldmLax'+ldmList);
+        if(ldmList.size() <= 0 && acc.Amount_Pending__c > 0){
+            //if user is partially paid show pending amount with 1 countofLabour
+            ldm.countOfLabour = 1;
+            ldm.amountToPay = acc.Amount_Pending__c;
+           	ldmList.add(ldm);
+
+        }
         		return ldmList;
 
     }
